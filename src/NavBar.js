@@ -10,11 +10,13 @@ function NavBar({ currentUser, setCurrentUser, setIsAuthenticated, isAuthenticat
     fetch("/logout", { method: "DELETE" })
       .then((res) => {
         if (res.ok) {
-          setCurrentUser(null);
+          setCurrentUser({email: "", password: "", games: [], comments: []});
           setIsAuthenticated(false);
          
         }
       })
+      .then(window.location.href ="/")
+      .then(window.location.reload())
       .catch((error) => console.log(error));
       console.log(currentUser)
       console.log(isAuthenticated)

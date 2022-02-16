@@ -1,28 +1,49 @@
 import { Card, Row, Col, Button, Modal, Form } from "react-bootstrap";
-import { useState } from "react";
-import NewGame from "./NewGame";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-function Game({ games, setGames }) {
-  // function handleCreateNewGame() {
-  //   return <NewGame />;
-  // }
+function Game({ games, setGames, currentUser }) {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("/users")
+      .then((resp) => resp.json())
+      .then((users) => setUsers(users));
+  }, []);
+
+  function handleOnClickJoinGame(gameId) {
+    const data = {
+      game_id: gameId,
+      user_id: currentUser.id,
+    };
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch("/users_games", configObj)
+      .then((resp) => resp.json())
+      .then((window.location.href = "/game-list"))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
   const [numOfPlayers, setNumOfPlayers] = useState("");
   const [location, setLocation] = useState("");
   const [dateAndTime, setDateAndTime] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [equipment, setEquipment] = useState("");
 
-  function handleCategoryOnChange(event) {
-    setCategory(event.target.value);
+  function handleTitleOnChange(event) {
+    setTitle(event.target.value);
   }
 
   function handleNumOfPlayersOnChange(event) {
@@ -37,14 +58,6 @@ function Game({ games, setGames }) {
     setDateAndTime(event.target.value);
   }
 
-  function handleFirstNameOnChange(event) {
-    setFirstName(event.target.value);
-  }
-
-  function handleLastNameOnChange(event) {
-    setLastName(event.target.value);
-  }
-
   function handleEquipmentOnChange(event) {
     setEquipment(event.target.value);
   }
@@ -55,11 +68,11 @@ function Game({ games, setGames }) {
       start_time_and_date: dateAndTime,
       num_of_players: numOfPlayers,
       location,
-      first_name: firstName,
-      last_name: lastName,
-      equipment_title: equipment,
-      category_title: category,
+      equipment,
+      game_name: title,
+      hosted_by: currentUser.id,
     };
+
     const configObj = {
       method: "POST",
       headers: {
@@ -69,13 +82,8 @@ function Game({ games, setGames }) {
     };
     fetch("/games", configObj)
       .then((resp) => resp.json())
-      .then((window.location.href = "/game-list"))
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    setDateAndTime("");
-    setLocation("");
-    setNumOfPlayers("");
+      .then(window.location.href="/game-list")
+      .catch((error) => console.error("Error:", error));
   }
 
   function handleGameDelete(gameId) {
@@ -96,51 +104,46 @@ function Game({ games, setGames }) {
     });
   }
 
-  function handleOnClickJoin() {
-    return <Button className="join-btn">Joined game!</Button>;
-  }
   return (
     <div>
       <h1 className="page-header">Games to Join and Create!</h1>
       <Row>
         {games.map((game) => {
-          console.log(game);
           return (
             <Col key={game.id}>
               <Card className="game-card">
                 <Card.Header>
+                  Hosted by:{" "}
+                  {users.find((u) => u.id === game.hosted_by)?.first_name}{" "}
+                  {users.find((u) => u.id === game.hosted_by)?.last_name}
+                </Card.Header>
+                <Card.Header>
                   Joined by:{" "}
-                  {game.users.map((user) => {
-                    return `${user.first_name} ${user.last_name}`;
-                  }).join(", ")}
+                  {game.users
+                    .map((user) => {
+                      return `${user.first_name} ${user.last_name}`;
+                    })
+                    .join(", ")}
                 </Card.Header>
                 <Card.Body>
-                  <Card.Title>
-                    Category: {game.category.category_title}
-                  </Card.Title>
+                  <Card.Title>Title: {game.game_name}</Card.Title>
                   <Card.Text>
                     Location: {game.location} <br />
                     Number of players needed: {game.num_of_players} <br />
                     Date and time of game: {game.start_time_and_date} <br />
-                    Equipment needed: {" "}
-                    {game.equipment.length === 0
-                      ? "None listed"
-                      : game.equipment
-                          .map(equipment => {
-                            console.log(equipment.equipment_title)
-                            return equipment.equipment_title
-                          })
-                          .join(", ")}
-                    
+                    Equipment needed: {game.equipment}
                   </Card.Text>
-                 
+
                   <Button
                     className="btn-secondary"
                     onClick={() => handleGameDelete(game.id)}
                   >
                     Delete
                   </Button>
-                  <Button onClick={handleOnClickJoin} className="join-btn">
+                  <Button
+                    onClick={() => handleOnClickJoinGame(game.id)}
+                    className="join-btn"
+                  >
                     Join game!
                   </Button>
                 </Card.Body>
@@ -160,26 +163,12 @@ function Game({ games, setGames }) {
             <Modal.Title>Create a game!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form.Label>First name</Form.Label>
+            <Form.Label>Title of game</Form.Label>
             <Form.Control
-              type="first-name"
-              placeholder="First name"
-              value={firstName}
-              onChange={handleFirstNameOnChange}
-            />
-            <Form.Label>Last name</Form.Label>
-            <Form.Control
-              type="last-name"
-              placeholder="Last name"
-              value={lastName}
-              onChange={handleLastNameOnChange}
-            />
-            <Form.Label>Category of game</Form.Label>
-            <Form.Control
-              type="category"
-              placeholder="Category of game"
-              value={category}
-              onChange={handleCategoryOnChange}
+              type="title"
+              placeholder="Title of game"
+              value={title}
+              onChange={handleTitleOnChange}
             />
             <Form.Label>Number of players needed</Form.Label>
             <Form.Control

@@ -2,12 +2,26 @@ import { NavLink } from "react-router-dom";
 import basketball from "./assets/Family-basketball.jpeg";
 import tennis from "./assets/tennis playing.jpeg";
 import soccer from "./assets/soccer playing.jpeg";
-import { Carousel, Row, Col } from "react-bootstrap";
+import { Carousel, Row, Col, Button } from "react-bootstrap";
+import { useState } from "react";
+import logo from "./assets/play-up-homepage-logo.png";
 
 function Home() {
+   
   return (
-    <div>
-      <div className="container-fluid">
+      <>
+    <div className="split left">
+    <div className="centered">
+      <img src={logo}/>
+    </div>
+  </div>
+  
+  <div className="split right">
+    <div className="centered">
+      <h1 className="home-header">Ready to play? Click <Button className="btn-home" href="/game-list">here</Button> to get started!</h1>
+    </div>
+  </div>
+      {/* <div className="container-fluid">
         <div className="row">
           <div className="col-12">
             <Carousel>
@@ -63,8 +77,8 @@ function Home() {
             </Carousel>
           </div>
         </div>
-      </div>
-    </div>
+      </div> */}
+      </>
   );
 }
 

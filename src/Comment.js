@@ -36,8 +36,7 @@ function Comment({ comments, currentUser }) {
     };
     fetch(`/comments/${commentId}`, configObj)
       .then((resp) => resp.json())
-    //   .then((window.location.href = "/comments-list"))
-      .then((data) => console.log(data))
+      .then((window.location.href = "/comments-list"))
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -59,7 +58,6 @@ function Comment({ comments, currentUser }) {
     fetch("/comments", configObj)
       .then((resp) => resp.json())
       .then((window.location.href = "/comments-list"))
-      .then((data) => console.log(data))
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -115,14 +113,15 @@ function Comment({ comments, currentUser }) {
             <Button variant="secondary" onClick={handleCloseReply}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={handleReplySubmit}>
+            <Button variant="primary" onClick={() => handleReplySubmit(comments.map(comment => {
+                return comment.id
+            }))}>
               Submit
             </Button>
           </Modal.Footer>
         </Modal>
 
         {comments.map((comment) => {
-          console.log(comment);
           return (
             <Col key={comment.id}>
               <Card className="comment-card">
@@ -131,9 +130,9 @@ function Comment({ comments, currentUser }) {
                   <Card.Title>{comment.comment}</Card.Title>
                   <Card.Text></Card.Text>
 
-                  <Button className="reply-btn" variant="primary" onClick={() => handleShowReply(comment.id)}>
+                  {/* <Button className="reply-btn" variant="primary" onClick={handleShowReply}>
                     Reply
-                  </Button>
+                  </Button> */}
                 </Card.Body>
               </Card>
             </Col>

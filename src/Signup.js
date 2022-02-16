@@ -3,15 +3,13 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "./assets/play-up-logo.png";
 
-
-function SignUp({setCurrentUser}) {
+function SignUp({ setCurrentUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [location, setLocation] = useState("")
-  const [userImage, setUserImage] = useState("")
-
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [location, setLocation] = useState("");
+  const [userImage, setUserImage] = useState("");
 
   function handleEmailOnChange(event) {
     setEmail(event.currentTarget.value);
@@ -30,38 +28,33 @@ function SignUp({setCurrentUser}) {
   }
 
   function handleLocationOnChange(event) {
-setLocation(event.target.value)
+    setLocation(event.target.value);
   }
 
   function handleUserImageOnChange(event) {
-    setUserImage(event.target.value)
-      }
-      console.log(userImage)
-
-
+    setUserImage(event.target.value);
+  }
 
   function handleSignUpClick(event) {
-    event.preventDefault()
+    event.preventDefault();
     fetch("/users", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email,
         password,
         first_name: firstName,
         last_name: lastName,
-        location, 
-        url: userImage
-      })
-
-    })
-    .then((res) => {
+        location,
+        url: userImage,
+      }),
+    }).then((res) => {
       if (res.ok) {
         res.json().then((user) => {
-          setCurrentUser(user);
-          window.location.href="/"
+          // setCurrentUser(user);
+          window.location.href = "/";
         });
       } else {
         res.json().then((errors) => {
@@ -94,7 +87,7 @@ setLocation(event.target.value)
 
                     <form>
                       <p className="login-header">
-                        Please login to your account
+                        Please signup for an account
                       </p>
 
                       <div className="form-outline mb-4">
@@ -122,7 +115,6 @@ setLocation(event.target.value)
                       <div className="form-outline mb-4">
                         <input
                           type="location"
-                         
                           className="form-control"
                           placeholder="Your location in city, state format"
                           value={location}
@@ -138,7 +130,9 @@ setLocation(event.target.value)
                           value={userImage}
                           onChange={handleUserImageOnChange}
                         />
-                        <label className="form-label">Your profile picture</label>
+                        <label className="form-label">
+                          Your profile picture
+                        </label>
                       </div>
 
                       <div className="form-outline mb-4">
@@ -165,7 +159,12 @@ setLocation(event.target.value)
 
                       <div className="text-center pt-1 mb-5 pb-1">
                         <NavLink to="/">
-                          <Button onClick={handleSignUpClick} className="btn-primary">Sign up</Button>
+                          <Button
+                            onClick={handleSignUpClick}
+                            className="btn-primary"
+                          >
+                            Sign up
+                          </Button>
                         </NavLink>
                       </div>
 

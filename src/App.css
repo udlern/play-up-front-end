@@ -1,7 +1,70 @@
 body {
    margin: 0px;
-    
 }
+
+/* Split the screen in half */
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: beige;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: beige;
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 550px;
+    border-radius: 50% 20% / 10% 40%;
+  }
+
+.home-header {
+    font-family: 'Fredoka One', cursive;
+    font-size: 400%;
+    color: #9dcd79;
+}
+.home-image {
+    border-radius: 50% 20% / 10% 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.btn-home {
+    background-color:  #f9844a!important;
+    border-color:    #f9844a!important;
+    font-size: 45%;
+}
+
+.btn-home:hover {
+    background-color: #90be6d !important;
+    border-color: #90be6d  !important
+
+}
+
 .btn-primary {
     background-color:  #f9844a!important;
     border-color:    #f9844a!important
@@ -115,7 +178,10 @@ padding-top: 15px;
 
 .join-btn {
     float: right !important;
+    
 }
+
+
 
 .nav-bar-header {
     overflow: auto;

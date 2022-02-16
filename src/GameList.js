@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import Game from "./Game"
-function GameList() {
+function GameList({currentUser, setCurrentUser}) {
     const [games, setGames] = useState([])
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function GameList() {
 
   
 return (
-<div><Game setGames={setGames} games={games}/></div>
+<div><Game currentUser={currentUser} setCurrentUser={setCurrentUser} setGames={setGames} games={games}/></div>
 )
 }
 

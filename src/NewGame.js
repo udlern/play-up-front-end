@@ -64,9 +64,7 @@ function NewGame() {
       .catch((error) => {
         console.error("Error:", error);
       });
-    setDateAndTime("");
-    setLocation("");
-    setNumOfPlayers("");
+
   }
 
   return (

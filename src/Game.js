@@ -25,7 +25,7 @@ function Game({ games, setGames, currentUser }) {
     };
     fetch("/users_games", configObj)
       .then((resp) => resp.json())
-      .then((window.location.href = "/game-list"))
+      .then((window.location.href = "/favorites-list"))
       .catch((error) => {
         console.error("Error:", error);
       });

@@ -140,7 +140,7 @@ function Login({ setCurrentUser, setIsAuthenticated }) {
                       <p className="small mb-0">
                         At Play Up! we are passionate about creating memorable
                         and enjoyable experiences for our players. We love to
-                        see people relating with one, especially when
+                        see people relating with one another, especially when
                         the interests are shared. All of us at Play Up! would
                         love for you to join and start making your own sport and
                         connection centered memories here!{" "}

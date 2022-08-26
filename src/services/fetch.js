@@ -2,9 +2,9 @@ let backEndURL = "";
 
 console.log(backEndURL);
 
-// if (process.env.NODE_ENV !== "development") {
-//   backEndURL = "https://play-up-back-end.herokuapp.com";
-// }
+if (process.env.NODE_ENV !== "development") {
+  backEndURL = "https://play-up-back-end.herokuapp.com";
+}
 
 console.log(backEndURL);
 

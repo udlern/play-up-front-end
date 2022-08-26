@@ -1,25 +1,29 @@
-import {useState } from "react";
+import { useState } from "react";
 import { Navbar, Offcanvas, Nav } from "react-bootstrap";
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 import navBarLogo from "./assets/play-up-logo.png";
 
-function NavBar({ currentUser, setCurrentUser, setIsAuthenticated, isAuthenticated}) {
-  const [expanded, setExpanded] = useState(false)
+function NavBar({
+  currentUser,
+  setCurrentUser,
+  setIsAuthenticated,
+  isAuthenticated,
+}) {
+  const [expanded, setExpanded] = useState(false);
   const handleLogout = () => {
     fetch("/logout", { method: "DELETE" })
       .then((res) => {
         if (res.ok) {
-          setCurrentUser({email: "", password: "", games: [], comments: []});
+          setCurrentUser({ email: "", password: "", games: [], comments: [] });
           setIsAuthenticated(false);
-         
         }
       })
-      .then(window.location.href ="/")
+      .then((window.location.href = "/"))
       .then(window.location.reload())
       .catch((error) => console.log(error));
-      console.log(currentUser)
-      console.log(isAuthenticated)
+    console.log(currentUser);
+    console.log(isAuthenticated);
   };
 
   return (
@@ -41,32 +45,74 @@ function NavBar({ currentUser, setCurrentUser, setIsAuthenticated, isAuthenticat
         aria-labelledby="offcanvasNavbarLabel"
         placement="end"
       >
-        <Offcanvas.Header closeButton show={expanded.toString()} onHide={() => setExpanded(false)}>
+        <Offcanvas.Header
+          closeButton
+          show={expanded.toString()}
+          onHide={() => setExpanded(false)}
+        >
           <Offcanvas.Title id="offcanvasNavbarLabel" className="nav-bar-title">
             Welcome, {currentUser ? currentUser.first_name : "Nobody"}!
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="justify-content-end flex-grow-1 pe-3">
-            <Nav.Link className="nav-bar-link" onClick={() => setExpanded(false)} as={NavLink} to="/profile">
+            <Nav.Link
+              className="nav-bar-link"
+              onClick={() => setExpanded(false)}
+              as={NavLink}
+              to="/profile"
+            >
               {currentUser ? currentUser.first_name : "Nobody"}'s Stats
             </Nav.Link>
-            <Nav.Link className="nav-bar-link" onClick={() => setExpanded(false)} as={NavLink} to="/players-list">
+            <Nav.Link
+              className="nav-bar-link"
+              onClick={() => setExpanded(false)}
+              as={NavLink}
+              to="/players-list"
+            >
               Players
             </Nav.Link>
-            <Nav.Link className="nav-bar-link" onClick={() => setExpanded(false)} as={NavLink} to="/game-list">
+            <Nav.Link
+              className="nav-bar-link"
+              onClick={() => setExpanded(false)}
+              as={NavLink}
+              to="/game-list"
+            >
               Find a Game
             </Nav.Link>
-            <Nav.Link className="nav-bar-link" onClick={() => setExpanded(false)} as={NavLink} to="/favorites-list">
+            <Nav.Link
+              className="nav-bar-link"
+              onClick={() => setExpanded(false)}
+              as={NavLink}
+              to="/favorites-list"
+            >
               My Games
             </Nav.Link>
-            <Nav.Link className="nav-bar-link" onClick={() => setExpanded(false)} as={NavLink} to="/comments-list">
+            <Nav.Link
+              className="nav-bar-link"
+              onClick={() => setExpanded(false)}
+              as={NavLink}
+              to="/comments-list"
+            >
               Huddle Up!
             </Nav.Link>
-            <Nav.Link className="nav-bar-link" onClick={() => setExpanded(false)} as={NavLink} to="/home">
+            <Nav.Link
+              className="nav-bar-link"
+              onClick={() => setExpanded(false)}
+              as={NavLink}
+              to="/home"
+            >
               Home Base
             </Nav.Link>
-            <Nav.Link className="nav-bar-link" onClick={() => setExpanded(false)} as={NavLink} to="/" onClick={handleLogout}>
+            <Nav.Link
+              className="nav-bar-link"
+              onClick={() => {
+                handleLogout();
+                setExpanded(false);
+              }}
+              as={NavLink}
+              to="/"
+            >
               Logout
             </Nav.Link>
           </Nav>

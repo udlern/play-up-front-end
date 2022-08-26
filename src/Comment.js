@@ -34,7 +34,7 @@ function Comment({ comments, currentUser }) {
       },
       body: JSON.stringify(data),
     };
-    fetch(`/comments/${commentId}`, configObj)
+    fetch(`https://play-up-back-end.herokuapp.com/comments/${commentId}`, configObj)
       .then((resp) => resp.json())
       .then((window.location.href = "/comments-list"))
       .catch((error) => {
@@ -55,7 +55,7 @@ function Comment({ comments, currentUser }) {
       },
       body: JSON.stringify(data),
     };
-    fetch("/comments", configObj)
+    fetch("https://play-up-back-end.herokuapp.com/comments", configObj)
       .then((resp) => resp.json())
       .then((window.location.href = "/comments-list"))
       .catch((error) => {

@@ -18,7 +18,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({email: "", password: "", games: [], comments: []});
 
   useEffect(() => {
-    fetch("/me").then((res) => {
+    fetch("https://play-up-back-end.herokuapp.com/me").then((res) => {
       console.log(res);
       if (res.ok) {
         res.json().then((user) => {

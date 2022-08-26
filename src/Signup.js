@@ -37,7 +37,7 @@ function SignUp({ setCurrentUser }) {
 
   function handleSignUpClick(event) {
     event.preventDefault();
-    fetch("/users", {
+    fetch("https://play-up-back-end.herokuapp.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

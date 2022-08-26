@@ -22,7 +22,7 @@ function Login({ setCurrentUser, setIsAuthenticated }) {
   function handleLogInClick(event) {
     event.preventDefault();
     setIsReady(false);
-    fetch("/login", {
+    fetch("https://play-up-back-end.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

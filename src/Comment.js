@@ -3,9 +3,9 @@ import { useState } from "react";
 
 function Comment({ comments, currentUser }) {
   const [showReply, setShowReply] = useState(false);
-  const [showComment, setShowComment] = useState(false)
+  const [showComment, setShowComment] = useState(false);
   const [commentForm, setCommentForm] = useState("");
-  const [reply, setReply] = useState("")
+  const [reply, setReply] = useState("");
 
   const handleCloseReply = () => setShowReply(false);
   const handleShowReply = () => setShowReply(true);
@@ -13,19 +13,18 @@ function Comment({ comments, currentUser }) {
   const handleCloseComment = () => setShowComment(false);
   const handleShowComment = () => setShowComment(true);
 
-
   function handleNewCommentOnChange(event) {
     setCommentForm(event.target.value);
   }
 
   function handleReplyOnChange(event) {
-      setReply(event.target.value)
+    setReply(event.target.value);
   }
 
   function handleReplySubmit(event, commentId) {
     event.preventDefault();
     const data = {
-      comment: reply
+      comment: reply,
     };
     const configObj = {
       method: "POST",
@@ -34,7 +33,7 @@ function Comment({ comments, currentUser }) {
       },
       body: JSON.stringify(data),
     };
-    fetch(`https://play-up-back-end.herokuapp.com/comments/${commentId}`, configObj)
+    fetch(`/comments/${commentId}`, configObj)
       .then((resp) => resp.json())
       .then((window.location.href = "/comments-list"))
       .catch((error) => {
@@ -55,7 +54,7 @@ function Comment({ comments, currentUser }) {
       },
       body: JSON.stringify(data),
     };
-    fetch("https://play-up-back-end.herokuapp.com/comments", configObj)
+    fetch("/comments", configObj)
       .then((resp) => resp.json())
       .then((window.location.href = "/comments-list"))
       .catch((error) => {
@@ -67,15 +66,19 @@ function Comment({ comments, currentUser }) {
     <div>
       <h1 className="page-header">Discussion Board</h1>
       <Row className="comment-btn-centered">
-          <Col>
+        <Col>
           <Row>
-        <Button className="comment-btn" variant="primary" onClick={handleShowComment}>
-          Write a comment!
-        </Button>
-        </Row>
+            <Button
+              className="comment-btn"
+              variant="primary"
+              onClick={handleShowComment}
+            >
+              Write a comment!
+            </Button>
+          </Row>
         </Col>
-        </Row>
-        <Row>
+      </Row>
+      <Row>
         <Modal className="modal" show={showComment} onHide={handleCloseComment}>
           <Modal.Header closeButton>
             <Modal.Title>Write a comment...</Modal.Title>
@@ -113,9 +116,16 @@ function Comment({ comments, currentUser }) {
             <Button variant="secondary" onClick={handleCloseReply}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={() => handleReplySubmit(comments.map(comment => {
-                return comment.id
-            }))}>
+            <Button
+              variant="primary"
+              onClick={() =>
+                handleReplySubmit(
+                  comments.map((comment) => {
+                    return comment.id;
+                  })
+                )
+              }
+            >
               Submit
             </Button>
           </Modal.Footer>
@@ -125,7 +135,9 @@ function Comment({ comments, currentUser }) {
           return (
             <Col key={comment.id}>
               <Card className="comment-card">
-                <Card.Header className="card-header">Posted by: {comment.user.first_name} {comment.user.last_name} </Card.Header>
+                <Card.Header className="card-header">
+                  Posted by: {comment.user.first_name} {comment.user.last_name}{" "}
+                </Card.Header>
                 <Card.Body>
                   <Card.Title>{comment.comment}</Card.Title>
                   <Card.Text></Card.Text>

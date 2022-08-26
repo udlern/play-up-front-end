@@ -15,11 +15,15 @@ import Profile from "./Profile";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState({email: "", password: "", games: [], comments: []});
+  const [currentUser, setCurrentUser] = useState({
+    email: "",
+    password: "",
+    games: [],
+    comments: [],
+  });
 
   useEffect(() => {
-    fetch("https://play-up-back-end.herokuapp.com/me").then((res) => {
-      console.log(res);
+    fetch("https://play-up-front-end.herokuapp.com/me").then((res) => {
       if (res.ok) {
         res.json().then((user) => {
           setCurrentUser(user);
@@ -54,8 +58,8 @@ function App() {
   // }
   return (
     <div>
-      {!isAuthenticated ?
-          <>
+      {!isAuthenticated ? (
+        <>
           {/* <NavBar
             setCurrentUser={setCurrentUser}
             currentUser={currentUser}
@@ -74,8 +78,7 @@ function App() {
             </Route>
           </Switch>
         </>
-        :
-
+      ) : (
         <Switch>
           <Route path="/home">
             <NavBar setCurrentUser={setCurrentUser} currentUser={currentUser} />
@@ -115,7 +118,7 @@ function App() {
             />
           </Route>
         </Switch>
-      }
+      )}
     </div>
   );
 }

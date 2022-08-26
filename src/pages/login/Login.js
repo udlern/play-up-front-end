@@ -1,11 +1,7 @@
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "./assets/play-up-logo.png";
-import { Nav } from "react-bootstrap";
-import LoadingBtn from "./LoadingBtn";
-import { Row, Col } from "react-bootstrap";
-import playUpFetch from "./services/fetch";
+import logo from "../../assets/play-up-logo.png";
 
 function Login({ setCurrentUser, setIsAuthenticated }) {
   const [email, setEmail] = useState("");
@@ -23,14 +19,14 @@ function Login({ setCurrentUser, setIsAuthenticated }) {
   function handleLogInClick(event) {
     event.preventDefault();
     setIsReady(false);
-    playUpFetch("/login", {
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email,
-        password: password,
+        email,
+        password,
       }),
     }).then((res) => {
       if (res.ok) {
@@ -47,17 +43,6 @@ function Login({ setCurrentUser, setIsAuthenticated }) {
       }
     });
   }
-
-  // if(!isReady) {
-  //   return (
-  //     <>
-  //      <div className='loading-body'>
-  //   <h1 className='spin'>
-
-  //   </h1>
-  //   </div>
-  //   </>)
-  // }
 
   return (
     <>
@@ -155,28 +140,6 @@ function Login({ setCurrentUser, setIsAuthenticated }) {
         </div>
       </section>
     </>
-
-    // <div>
-    // <img src={logo} alt="Play Up! logo" width="200" height="200"></img>
-    // <form className="row g-3">
-    //     <div className="col-sm-6">
-    //         <label className="form-label">Email</label>
-    //         <input type="email" onChange={handleEmailOnChange} value={email} className="form-control" id="inputEmail4" />
-    //     </div>
-    //     <div className="col-sm-6">
-    //         <label className="form-label">Password</label>
-    //         <input type="password" className="form-control" id="inputPassword4" onChange={handlePasswordOnChange} value={password}/>
-    //     </div>
-    //     <div className="col col-lg-2">
-    //         <button type="submit" className="btn btn-primary" onClick={handleLogInClick}>Log in</button>
-    //     </div>
-    //     <NavLink to="/">
-    //     <div className="col col-lg-2">
-    //         <button type="submit" className="btn btn-secondary" onClick={handleLogInClick}>Back Home</button>
-    //     </div>
-    //     </NavLink>
-    // </form>
-    // </div>
   );
 }
 

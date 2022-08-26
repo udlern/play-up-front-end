@@ -1,15 +1,6 @@
-import { Card, Button, Row, Container, Col } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Card, Col, Row } from "react-bootstrap";
 
 function Player({ users, setUsers }) {
-  //   function handleAddTeammate(currentUser) {
-  //     setUsers(
-  //       users.map((user) => {
-  //         return user.id === currentUser.id ? { ...user, favorite: true } : user;
-  //       })
-  //     );
-  //   }
-
   return (
     <div>
       <h1 className="page-header">Play Up! Users</h1>
@@ -36,15 +27,6 @@ function Player({ users, setUsers }) {
                           })
                           .join(", ")}
                   </Card.Text>
-                  {/* <Button
-                    onClick={() => handleAddTeammate(user)}
-                    id="teammate-btn"
-                    className="follow-btn"
-                  >
-                    {users.find((u) => u.id === user.id).favorite
-                      ? "Added as a teammate!"
-                      : "Add as a teammate!"}
-                  </Button> */}
                 </Card.Body>
               </Card>
             </Col>

@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Card, Button } from "react-bootstrap";
-import playUpFetch from "./services/fetch";
+import { Row, Col, Card } from "react-bootstrap";
 
 function FavoritesList({ currentUser }) {
   const [usersGames, setUsersGames] = useState([]);
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    playUpFetch(`/users/${currentUser.id}`)
+    fetch(`/users/${currentUser.id}`)
       .then((resp) => resp.json())
       .then((user) => setUsersGames(user.games));
   }, []);
@@ -15,18 +14,17 @@ function FavoritesList({ currentUser }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    playUpFetch("/users")
+    fetch("/users")
       .then((resp) => resp.json())
       .then(setUsers);
   }, []);
 
   useEffect(() => {
     usersGames.forEach((game) => {
-      playUpFetch(`/games/${game.id}`)
+      fetch(`/games/${game.id}`)
         .then((resp) => resp.json())
         .then((game) => setGames((prevGames) => [...prevGames, game]));
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usersGames.length]);
 
   return (

@@ -1,13 +1,13 @@
-let backEndURL = "";
+// let backEndURL = "http://localhost:3000";
 
-console.log(backEndURL);
+// console.log(backEndURL);
 
-if (process.env.NODE_ENV !== "development") {
-  backEndURL = "https://play-up-back-end.herokuapp.com";
-}
+// if (process.env.NODE_ENV !== "development") {
+//   backEndURL = "https://play-up-back-end.herokuapp.com";
+// }
 
-console.log(backEndURL);
+// console.log(backEndURL);
 
-export default function playUpFetch(url, configObj) {
-  return fetch(backEndURL + url, configObj);
-}
+// export default function playUpFetch(url, configObj) {
+//   return fetch(backEndURL + url, configObj);
+// }

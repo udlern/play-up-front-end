@@ -1,10 +1,9 @@
 import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "./assets/play-up-logo.png";
-import playUpFetch from "./services/fetch";
+import logo from "../../assets/play-up-logo.png";
 
-function SignUp({ setCurrentUser }) {
+function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -38,7 +37,7 @@ function SignUp({ setCurrentUser }) {
 
   function handleSignUpClick(event) {
     event.preventDefault();
-    playUpFetch("https://play-up-back-end.herokuapp.com/users", {
+    fetch("/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +53,6 @@ function SignUp({ setCurrentUser }) {
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => {
-          // setCurrentUser(user);
           window.location.href = "/";
         });
       } else {

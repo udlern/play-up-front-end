@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Navbar, Offcanvas, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-
-import navBarLogo from "./assets/play-up-logo.png";
-import playUpFetch from "./services/fetch";
+import navBarLogo from "../assets/play-up-logo.png";
 
 function NavBar({
   currentUser,
@@ -13,7 +11,7 @@ function NavBar({
 }) {
   const [expanded, setExpanded] = useState(false);
   const handleLogout = () => {
-    playUpFetch("/logout", { method: "DELETE" })
+    fetch("/logout", { method: "DELETE" })
       .then((res) => {
         if (res.ok) {
           setCurrentUser({ email: "", password: "", games: [], comments: [] });
@@ -29,12 +27,7 @@ function NavBar({
 
   return (
     <Navbar className="nav-bar" bg="light" expand={false} expanded={expanded}>
-      <Navbar.Brand href="/">
-        {" "}
-        {/* <div className="nav-bar-header">
-          <img className="nav-bar-img" src={navBarLogo} alt="nav bar logo"/>
-          </div> */}
-      </Navbar.Brand>
+      <Navbar.Brand href="/"> </Navbar.Brand>
       <Navbar.Toggle
         className="nav-bar-toggle"
         aria-controls="offcanvasNavbar"

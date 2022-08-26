@@ -1,16 +1,15 @@
 import { Form, Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import playUpFetch from "./services/fetch";
 
 function NewGame() {
   const [category, setCategory] = useState("");
   const [numOfPlayers, setNumOfPlayers] = useState("");
   const [location, setLocation] = useState("");
   const [dateAndTime, setDateAndTime] = useState("");
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [equipment, setEquipment] = useState("")
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [equipment, setEquipment] = useState("");
 
   function handleCategoryOnChange(event) {
     setCategory(event.target.value);
@@ -29,16 +28,15 @@ function NewGame() {
   }
 
   function handleFirstNameOnChange(event) {
-      setFirstName(event.target.value)
-
+    setFirstName(event.target.value);
   }
 
   function handleLastNameOnChange(event) {
-      setLastName(event.target.value)
+    setLastName(event.target.value);
   }
 
   function handleEquipmentOnChange(event) {
-      setEquipment(event.target.value)
+    setEquipment(event.target.value);
   }
 
   function handleNewGameSubmit(event) {
@@ -50,7 +48,7 @@ function NewGame() {
       first_name: firstName,
       last_name: lastName,
       equipment_title: equipment,
-      category_title: category
+      category_title: category,
     };
     const configObj = {
       method: "POST",
@@ -59,19 +57,18 @@ function NewGame() {
       },
       body: JSON.stringify(data),
     };
-    playUpFetch("/games", configObj)
+    fetch("/games", configObj)
       .then((resp) => resp.json())
-      .then(window.location.href = "/")
+      .then((window.location.href = "/"))
       .catch((error) => {
         console.error("Error:", error);
       });
-
   }
 
   return (
     <div>
       <Form>
-         <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>First name</Form.Label>
           <Form.Control
             type="first-name"
@@ -79,8 +76,8 @@ function NewGame() {
             value={firstName}
             onChange={handleFirstNameOnChange}
           />
-          </Form.Group>
-           <Form.Group className="mb-3" controlId="formBasicPassword">
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Last name</Form.Label>
           <Form.Control
             type="last-name"
@@ -88,11 +85,16 @@ function NewGame() {
             value={lastName}
             onChange={handleLastNameOnChange}
           />
-           <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Category of game</Form.Label>
-          <Form.Control type="category" placeholder="Category of game" value={category} onChange={handleCategoryOnChange}/>
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Category of game</Form.Label>
+            <Form.Control
+              type="category"
+              placeholder="Category of game"
+              value={category}
+              onChange={handleCategoryOnChange}
+            />
           </Form.Group>
+        </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Number of players needed</Form.Label>
           <Form.Control
@@ -110,10 +112,15 @@ function NewGame() {
             value={location}
             onChange={handleLocationOnChange}
           />
-           <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Equipment needed</Form.Label>
-          <Form.Control type="equipment" placeholder="Equipment needed" value={equipment} onChange={handleEquipmentOnChange}/>
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Equipment needed</Form.Label>
+            <Form.Control
+              type="equipment"
+              placeholder="Equipment needed"
+              value={equipment}
+              onChange={handleEquipmentOnChange}
+            />
+          </Form.Group>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Date and Time of the game</Form.Label>
@@ -125,9 +132,9 @@ function NewGame() {
           />
         </Form.Group>
         <NavLink to="/">
-        <Button onClick={handleNewGameSubmit} variant="primary" type="submit">
-          Create new game!
-        </Button>
+          <Button onClick={handleNewGameSubmit} variant="primary" type="submit">
+            Create new game!
+          </Button>
         </NavLink>
       </Form>
     </div>

@@ -23,7 +23,7 @@ function App() {
   });
 
   useEffect(() => {
-    fetch("https://play-up-front-end.herokuapp.com/me").then((res) => {
+    fetch("https://play-up-back-end.herokuapp.com/me").then((res) => {
       if (res.ok) {
         res.json().then((user) => {
           setCurrentUser(user);

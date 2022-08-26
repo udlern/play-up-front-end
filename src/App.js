@@ -12,6 +12,7 @@ import PlayersList from "./PlayersList";
 import CommentsList from "./CommentsList";
 import FavoritesList from "./FavoritesList";
 import Profile from "./Profile";
+import playUpFetch from "./services/fetch";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,7 +24,7 @@ function App() {
   });
 
   useEffect(() => {
-    fetch("https://play-up-back-end.herokuapp.com/me").then((res) => {
+    playUpFetch("/me").then((res) => {
       if (res.ok) {
         res.json().then((user) => {
           setCurrentUser(user);

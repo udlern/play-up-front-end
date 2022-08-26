@@ -5,6 +5,7 @@ import logo from "./assets/play-up-logo.png";
 import { Nav } from "react-bootstrap";
 import LoadingBtn from "./LoadingBtn";
 import { Row, Col } from "react-bootstrap";
+import playUpFetch from "./services/fetch";
 
 function Login({ setCurrentUser, setIsAuthenticated }) {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ function Login({ setCurrentUser, setIsAuthenticated }) {
   function handleLogInClick(event) {
     event.preventDefault();
     setIsReady(false);
-    fetch("https://play-up-back-end.herokuapp.com/login", {
+    playUpFetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

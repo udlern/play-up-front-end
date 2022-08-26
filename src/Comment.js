@@ -1,5 +1,6 @@
 import { Row, Col, Button, Card, Modal, Form } from "react-bootstrap";
 import { useState } from "react";
+import playUpFetch from "./services/fetch";
 
 function Comment({ comments, currentUser }) {
   const [showReply, setShowReply] = useState(false);
@@ -33,7 +34,7 @@ function Comment({ comments, currentUser }) {
       },
       body: JSON.stringify(data),
     };
-    fetch(`/comments/${commentId}`, configObj)
+    playUpFetch(`/comments/${commentId}`, configObj)
       .then((resp) => resp.json())
       .then((window.location.href = "/comments-list"))
       .catch((error) => {
@@ -54,7 +55,7 @@ function Comment({ comments, currentUser }) {
       },
       body: JSON.stringify(data),
     };
-    fetch("/comments", configObj)
+    playUpFetch("/comments", configObj)
       .then((resp) => resp.json())
       .then((window.location.href = "/comments-list"))
       .catch((error) => {

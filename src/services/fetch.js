@@ -1,4 +1,4 @@
-let backEndURL = "http://localhost:3000";
+let backEndURL = "";
 
 console.log(backEndURL);
 

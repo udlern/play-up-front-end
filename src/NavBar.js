@@ -3,6 +3,7 @@ import { Navbar, Offcanvas, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 import navBarLogo from "./assets/play-up-logo.png";
+import playUpFetch from "./services/fetch";
 
 function NavBar({
   currentUser,
@@ -12,7 +13,7 @@ function NavBar({
 }) {
   const [expanded, setExpanded] = useState(false);
   const handleLogout = () => {
-    fetch("/logout", { method: "DELETE" })
+    playUpFetch("/logout", { method: "DELETE" })
       .then((res) => {
         if (res.ok) {
           setCurrentUser({ email: "", password: "", games: [], comments: [] });

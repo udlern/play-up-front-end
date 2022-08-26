@@ -29,8 +29,8 @@ function Login({ setCurrentUser, setIsAuthenticated }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        password,
+        email: email,
+        password: password,
       }),
     }).then((res) => {
       if (res.ok) {

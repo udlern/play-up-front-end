@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "./assets/play-up-logo.png";
+import playUpFetch from "./services/fetch";
 
 function SignUp({ setCurrentUser }) {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ function SignUp({ setCurrentUser }) {
 
   function handleSignUpClick(event) {
     event.preventDefault();
-    fetch("https://play-up-back-end.herokuapp.com/users", {
+    playUpFetch("https://play-up-back-end.herokuapp.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -186,10 +187,10 @@ function SignUp({ setCurrentUser }) {
                     <p className="small mb-0">
                       At Play Up! we are passionate about creating memorable and
                       enjoyable experiences for our players. We love to see
-                      people relating with one another, especially when
-                      the interests are shared. All of us at Play Up! would love
-                      for you to join and start making your own sport and
-                      connection centered memories with us!
+                      people relating with one another, especially when the
+                      interests are shared. All of us at Play Up! would love for
+                      you to join and start making your own sport and connection
+                      centered memories with us!
                     </p>
                   </div>
                 </div>

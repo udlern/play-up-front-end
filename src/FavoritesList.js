@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
+import playUpFetch from "./services/fetch";
 
 function FavoritesList({ currentUser }) {
   const [usersGames, setUsersGames] = useState([]);
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    fetch(`/users/${currentUser.id}`)
+    playUpFetch(`/users/${currentUser.id}`)
       .then((resp) => resp.json())
       .then((user) => setUsersGames(user.games));
   }, []);
@@ -14,21 +15,19 @@ function FavoritesList({ currentUser }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("/users")
+    playUpFetch("/users")
       .then((resp) => resp.json())
       .then(setUsers);
   }, []);
 
   useEffect(() => {
     usersGames.forEach((game) => {
-      fetch(`/games/${game.id}`)
+      playUpFetch(`/games/${game.id}`)
         .then((resp) => resp.json())
         .then((game) => setGames((prevGames) => [...prevGames, game]));
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usersGames.length]);
-
-  
 
   return (
     <div>
@@ -59,7 +58,6 @@ function FavoritesList({ currentUser }) {
                     Date and time of game: {game.start_time_and_date} <br />
                     Equipment needed: {game.equipment}
                   </Card.Text>
-                
                 </Card.Body>
               </Card>
             </Col>
@@ -68,6 +66,6 @@ function FavoritesList({ currentUser }) {
       </Row>
     </div>
   );
-    }
+}
 
 export default FavoritesList;

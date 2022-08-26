@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 
 import Comment from "./Comment";
+import playUpFetch from "./services/fetch";
 
 function CommentsList({ currentUser }) {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    fetch("/comments")
+    playUpFetch("/comments")
       .then((resp) => resp.json())
       .then(setComments);
   }, []);

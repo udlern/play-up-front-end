@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react"
 import Game from "./Game"
+import playUpFetch from "./services/fetch"
 function GameList({currentUser, setCurrentUser}) {
     const [games, setGames] = useState([])
 
     useEffect(() => {
-        fetch("/games")
+        playUpFetch("/games")
         .then(resp => resp.json())
         .then(setGames)
     }, []) 

@@ -1,6 +1,7 @@
 import { Form, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import playUpFetch from "./services/fetch";
 
 function NewGame() {
   const [category, setCategory] = useState("");
@@ -58,7 +59,7 @@ function NewGame() {
       },
       body: JSON.stringify(data),
     };
-    fetch("/games", configObj)
+    playUpFetch("/games", configObj)
       .then((resp) => resp.json())
       .then(window.location.href = "/")
       .catch((error) => {

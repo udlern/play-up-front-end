@@ -1,6 +1,7 @@
 import { Card, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import playUpFetch from "./services/fetch";
 
 function Game({ games, setGames, currentUser }) {
   const [users, setUsers] = useState([]);
@@ -80,14 +81,14 @@ function Game({ games, setGames, currentUser }) {
       },
       body: JSON.stringify(data),
     };
-    fetch("/games", configObj)
+    playUpFetch("/games", configObj)
       .then((resp) => resp.json())
       .then(window.location.href="/game-list")
       .catch((error) => console.error("Error:", error));
   }
 
   function handleGameDelete(gameId) {
-    fetch(`/games/${gameId}`, { method: "DELETE" }).then((resp) => {
+    playUpFetch(`/games/${gameId}`, { method: "DELETE" }).then((resp) => {
       if (resp.ok) {
         resp.arrayBuffer().then(
           // Fetching games ...
